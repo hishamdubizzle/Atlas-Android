@@ -25,6 +25,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.layer.sdk.messaging.Conversation;
+import com.layer.sdk.messaging.Identity;
 import com.layer.sdk.messaging.Message;
 import com.layer.sdk.query.Predicate;
 import com.layer.sdk.query.Query;
@@ -38,6 +39,7 @@ import com.layer.ui.util.itemanimators.NoChangeAnimator;
 import com.layer.ui.util.views.SwipeableItem;
 
 import java.util.List;
+import java.util.Set;
 
 public class MessagesRecyclerView extends ItemsRecyclerView<Message> {
     private LinearLayoutManager mLayoutManager;
@@ -164,8 +166,8 @@ public class MessagesRecyclerView extends ItemsRecyclerView<Message> {
      *
      * @see MessagesAdapter#setFooterView(View)
      */
-    public void setFooterView(View footerView) {
-        ((MessagesAdapter) mAdapter).setFooterView(footerView);
+    public void setFooterView(View footerView, Set<Identity> users) {
+        ((MessagesAdapter) mAdapter).setFooterView(footerView, users);
         autoScroll();
     }
 

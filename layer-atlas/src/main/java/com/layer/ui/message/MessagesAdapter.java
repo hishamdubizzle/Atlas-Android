@@ -92,6 +92,7 @@ public class MessagesAdapter extends ItemRecyclerViewAdapter<Message, MessageIte
     private boolean delivered = false;
     private Map<Identity, Message.RecipientStatus> statuses;
     private DateFormatter mDateFormatter;
+    private Set<Identity> mUsersTyping;
 
     public MessagesAdapter(Context context, LayerClient layerClient, ImageCacheWrapper imageCacheWrapper, DateFormatter dateFormatter) {
         super(context, layerClient, TAG, false);
@@ -154,10 +155,11 @@ public class MessagesAdapter extends ItemRecyclerViewAdapter<Message, MessageIte
         return mFooterView;
     }
 
-    public void setFooterView(View footerView) {
+    public void setFooterView(View footerView, Set<Identity> users) {
         boolean isNull = footerView == null;
         boolean wasNull = mFooterView == null;
         mFooterView = footerView;
+        mUsersTyping = users;
 
         if (wasNull && !isNull) {
             // Insert
@@ -289,9 +291,11 @@ public class MessagesAdapter extends ItemRecyclerViewAdapter<Message, MessageIte
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == VIEW_TYPE_FOOTER) {
+            MessageItemViewModel messageItemViewModel = new MessageItemViewModel(null);
+
             UiMessageItemFooterBinding uiMessageItemFooterBinding =
                     UiMessageItemFooterBinding.inflate(mLayoutInflater, parent, false);
-            return new MessageItemFooterViewHolder(uiMessageItemFooterBinding);
+            return new MessageItemFooterViewHolder(uiMessageItemFooterBinding, messageItemViewModel, mImageCacheWrapper);
         }
 
         MessageCell messageCell = mCellTypesByViewType.get(viewType);
@@ -313,7 +317,7 @@ public class MessagesAdapter extends ItemRecyclerViewAdapter<Message, MessageIte
             int position, List<Object> payloads) {
         if (mFooterView != null && position == mFooterPosition) {
             // Footer
-            bindFooter((MessageItemFooterViewHolder) holder);
+            bindFooter((MessageItemFooterViewHolder) holder, position);
         } else {
             // Cell
             bindCellViewHolder((MessageCellViewHolder) holder, position);
@@ -321,12 +325,12 @@ public class MessagesAdapter extends ItemRecyclerViewAdapter<Message, MessageIte
         super.onBindViewHolder(holder, position, payloads);
     }
 
-    public void bindFooter(MessageItemFooterViewHolder viewHolder) {
+    public void bindFooter(MessageItemFooterViewHolder viewHolder, int position) {
         viewHolder.mRoot.removeAllViews();
         if (mFooterView.getParent() != null) {
             ((ViewGroup) mFooterView.getParent()).removeView(mFooterView);
         }
-        viewHolder.mRoot.addView(mFooterView);
+        viewHolder.bind(mUsersTyping, mFooterView);
     }
 
     public void bindCellViewHolder(MessageCellViewHolder viewHolder, int position) {

@@ -7,7 +7,6 @@ import com.layer.sdk.messaging.Message;
 import com.layer.ui.recyclerview.OnItemClickListener;
 import com.layer.ui.viewmodel.ItemViewModel;
 
-import java.util.Collections;
 import java.util.Set;
 
 public class MessageItemViewModel extends ItemViewModel<Message> {
@@ -49,8 +48,8 @@ public class MessageItemViewModel extends ItemViewModel<Message> {
         return mParticipants;
     }
 
-    public void setParticipants(Identity identity) {
-        mParticipants = Collections.singleton(identity);
+    public void setParticipants(Set<Identity> identities) {
+        mParticipants = identities;
     }
 
     @Bindable

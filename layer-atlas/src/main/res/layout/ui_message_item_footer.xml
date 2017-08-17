@@ -13,15 +13,39 @@
      See the License for the specific language governing permissions and
      limitations under the License.    
 -->
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <FrameLayout
-        android:id="@+id/swipeable"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.layer.ui.message.MessageItemViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/layer_ui_padding_normal"
-        android:paddingRight="@dimen/layer_ui_padding_normal"
-        android:paddingTop="@dimen/layer_ui_message_cluster_space">
+        android:orientation="horizontal">
 
-    </FrameLayout>
+        <com.layer.ui.avatar.AvatarView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/layer_ui_message_avatar_item_single"
+            android:layout_height="@dimen/layer_ui_message_avatar_item_single"
+            android:layout_marginLeft="@dimen/layer_ui_padding_normal"
+            app:participants="@{viewModel.participants}" />
+
+        <FrameLayout
+            android:id="@+id/swipeable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/layer_ui_padding_normal"
+            android:paddingRight="@dimen/layer_ui_padding_normal"
+            android:paddingTop="@dimen/layer_ui_message_cluster_space">
+
+        </FrameLayout>
+
+    </LinearLayout>
 </layout>

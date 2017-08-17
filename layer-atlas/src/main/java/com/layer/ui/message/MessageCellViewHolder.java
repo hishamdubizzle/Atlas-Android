@@ -19,6 +19,7 @@ import com.layer.ui.util.Util;
 import com.layer.ui.util.imagecache.ImageCacheWrapper;
 
 import java.text.DateFormat;
+import java.util.Collections;
 import java.util.Date;
 
 public class MessageCellViewHolder extends
@@ -63,8 +64,9 @@ public class MessageCellViewHolder extends
         messageItemViewModel.setTimeGroupDay(timeBarDayText);
         messageItemViewModel.setSender(sender);
         if (message.getSender() != null) {
+
             messageItemViewModel.setParticipants(
-                    message.getSender());
+                    Collections.singleton(message.getSender()));
         }
         messageItemViewModel.setRecipientStatus(recipientStatus);
         messageItemViewModel.setIsRecipientStatusVisible(isRecipientStatusVisible);
@@ -73,7 +75,7 @@ public class MessageCellViewHolder extends
         messageItemViewModel.setIsClusterSpaceVisible(isClusterSpaceVisible);
         messageItemViewModel.setShouldShowDisplayName(shouldDisplayName);
         messageItemViewModel.setShouldBindDateTimeForMessage(shouldBindDateTimeForMessage);
-        messageItemViewModel.setParticipants(message.getSender());
+        messageItemViewModel.setParticipants(Collections.singleton(message.getSender()));
         messageItemViewModel.setMessageSent(message.isSent());
         messageItemViewModel.setMyCellType(isCellTypeMe);
         messageItemViewModel.notifyChange();

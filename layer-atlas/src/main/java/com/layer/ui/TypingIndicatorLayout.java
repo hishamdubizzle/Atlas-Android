@@ -26,6 +26,7 @@ import com.layer.sdk.messaging.Conversation;
 import com.layer.sdk.messaging.Identity;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -151,12 +152,14 @@ public class TypingIndicatorLayout extends FrameLayout implements LayerTypingInd
             mTypists.put(user, typingIndicator);
         }
         empty = mTypists.isEmpty();
+        Set<Identity> identitySet = mTypists.keySet();
+
         if (empty && mActive) {
             mActive = false;
-            if (mActivityListener != null) mActivityListener.onTypingActivityChange(this, false);
+            if (mActivityListener != null) mActivityListener.onTypingActivityChange(this, false, identitySet);
         } else if (!empty && !mActive) {
             mActive = true;
-            if (mActivityListener != null) mActivityListener.onTypingActivityChange(this, true);
+            if (mActivityListener != null) mActivityListener.onTypingActivityChange(this, true, identitySet);
         }
 
         // Refresh the indicator view.
@@ -196,6 +199,6 @@ public class TypingIndicatorLayout extends FrameLayout implements LayerTypingInd
          * @param typingIndicator AtlasTypingIndicator notifying this listener.
          * @param active          `true` if typists are now active, or `false` if inactive.
          */
-        void onTypingActivityChange(TypingIndicatorLayout typingIndicator, boolean active);
+        void onTypingActivityChange(TypingIndicatorLayout typingIndicator, boolean active, Set<Identity> users);
     }
 }
