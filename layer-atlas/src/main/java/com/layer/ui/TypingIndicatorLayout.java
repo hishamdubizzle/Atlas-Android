@@ -151,6 +151,7 @@ public class TypingIndicatorLayout extends FrameLayout implements LayerTypingInd
         } else {
             mTypists.put(user, typingIndicator);
         }
+
         empty = mTypists.isEmpty();
         Set<Identity> identitySet = mTypists.keySet();
 
@@ -159,6 +160,8 @@ public class TypingIndicatorLayout extends FrameLayout implements LayerTypingInd
             if (mActivityListener != null) mActivityListener.onTypingActivityChange(this, false, identitySet);
         } else if (!empty && !mActive) {
             mActive = true;
+            if (mActivityListener != null) mActivityListener.onTypingActivityChange(this, true, identitySet);
+        } else if (!empty) {
             if (mActivityListener != null) mActivityListener.onTypingActivityChange(this, true, identitySet);
         }
 

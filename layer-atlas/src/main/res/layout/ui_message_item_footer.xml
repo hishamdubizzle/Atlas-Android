@@ -25,27 +25,49 @@
             type="com.layer.ui.message.MessageItemViewModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginLeft="@dimen/layer_ui_padding_normal"
+        android:paddingTop="@dimen/layer_ui_message_cluster_space">
 
-        <com.layer.ui.avatar.AvatarView
-            android:id="@+id/avatar"
-            android:layout_width="@dimen/layer_ui_message_avatar_item_single"
-            android:layout_height="@dimen/layer_ui_message_avatar_item_single"
-            android:layout_marginLeft="@dimen/layer_ui_padding_normal"
-            app:participants="@{viewModel.participants}" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/messageFooterAnimation"
+            android:visibility="@{viewModel.messageFooterAnimationVisibility}"
+            android:orientation="horizontal">
+            <com.layer.ui.avatar.AvatarView
+                android:id="@+id/avatar"
+                android:layout_width="@dimen/layer_ui_message_avatar_item_single"
+                android:layout_height="@dimen/layer_ui_message_avatar_item_single"
+                android:layout_marginRight="@dimen/layer_ui_padding_narrow"
+                android:visibility="@{viewModel.avatarVisibility}"
+                app:participants="@{viewModel.participants}" />
 
-        <FrameLayout
-            android:id="@+id/swipeable"
+            <FrameLayout
+                android:id="@+id/swipeable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/layer_ui_padding_normal"
+                android:paddingRight="@dimen/layer_ui_padding_normal">
+            </FrameLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/messageFooterNames"
+            android:layout_below="@id/messageFooterAnimation"
+            android:layout_marginTop="@dimen/layer_ui_message_item_time_group_padding_top"
+            android:visibility="@{viewModel.typingIndicatorMessageVisibility}"
+            android:text="@{viewModel.typingIndicatorMessage}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/layer_ui_text_gray"
+            android:textSize="@dimen/layer_ui_text_size_message_item_metadata"
             android:paddingLeft="@dimen/layer_ui_padding_normal"
-            android:paddingRight="@dimen/layer_ui_padding_normal"
-            android:paddingTop="@dimen/layer_ui_message_cluster_space">
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:maxLines="1"/>
 
-        </FrameLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

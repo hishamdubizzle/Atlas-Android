@@ -23,6 +23,9 @@ public class MessageItemViewModel extends ItemViewModel<Message> {
     private boolean mIsRecipientStatusVisible;
     private boolean mIsMyCellType;
     private int mAvatarViewVisibilityType;
+    private int mMessageFooterAnimationVisibility;
+    private String mTypingIndicatorMessage;
+    private int mTypingIndicatorVisibility;
 
     public MessageItemViewModel(
             OnItemClickListener<Message> itemClickListener) {
@@ -135,5 +138,32 @@ public class MessageItemViewModel extends ItemViewModel<Message> {
 
     public void setAvatarViewVisibilityType(int avatarViewVisibilityType) {
         mAvatarViewVisibilityType = avatarViewVisibilityType;
+    }
+
+    @Bindable
+    public int getMessageFooterAnimationVisibility() {
+        return mMessageFooterAnimationVisibility;
+    }
+
+    public void setMessageFooterAnimationVisibility(int visibility) {
+        mMessageFooterAnimationVisibility = visibility;
+    }
+
+    public void setTypingIndicatorMessage(String typingIndicatorMessage) {
+        mTypingIndicatorMessage = typingIndicatorMessage;
+    }
+
+    @Bindable
+    public String getTypingIndicatorMessage() {
+        return mTypingIndicatorMessage;
+    }
+
+    public void setTypingIndicatorMessageVisibility(int typingIndicatorVisibility) {
+        mTypingIndicatorVisibility = typingIndicatorVisibility;
+    }
+
+    @Bindable
+    public int getTypingIndicatorMessageVisibility() {
+        return mTypingIndicatorVisibility;
     }
 }

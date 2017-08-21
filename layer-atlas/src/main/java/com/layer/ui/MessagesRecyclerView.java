@@ -164,7 +164,7 @@ public class MessagesRecyclerView extends ItemsRecyclerView<Message> {
     /**
      * Convenience pass-through to this list's MessagesAdapter.
      *
-     * @see MessagesAdapter#setFooterView(View)
+     * @see MessagesAdapter#setFooterView(View, Set)
      */
     public void setFooterView(View footerView, Set<Identity> users) {
         ((MessagesAdapter) mAdapter).setFooterView(footerView, users);

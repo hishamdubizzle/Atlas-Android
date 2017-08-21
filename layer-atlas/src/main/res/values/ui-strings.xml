@@ -59,4 +59,10 @@
     <string name="layer_ui_message_composer_hint">Message</string>
     <string name="layer_ui_message_composer_send_button">SEND</string>
 
+    <plurals name="layer_ui_typing_indicator_message">
+        <item quantity="one">%1$s, %2$s and %3$d person are typing</item>
+        <item quantity="other">%1$s, %2$s and %3$d others are typing</item>
+    </plurals>
+
+
 </resources>
