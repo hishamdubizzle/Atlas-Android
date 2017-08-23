@@ -13,10 +13,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.    
 -->
-<com.layer.atlas.util.views.SwipeableItem
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.layer.atlas.util.views.SwipeableItem xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/atlas_primary_item_height"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/atlas_swipeable_item_background_selector">
 
     <LinearLayout
@@ -75,14 +75,26 @@
                 android:paddingRight="@dimen/atlas_padding_normal"
                 >
 
-                <!-- Tomaz and time -->
+                <!-- Participant name -->
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    tools:text="[Name]"
+                    android:textSize="@dimen/atlas_text_size_primary_item_subtitle"
+
+
+
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     >
-
+                    <!-- chat title -->
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="0dp"

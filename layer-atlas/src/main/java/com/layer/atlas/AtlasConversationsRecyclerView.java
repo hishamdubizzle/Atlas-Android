@@ -171,6 +171,17 @@ public class AtlasConversationsRecyclerView extends RecyclerView {
         conversationStyle.setDateUnreadTextTypeface(dateUnreadTypeface);
         return this;
     }
+    public AtlasConversationsRecyclerView setTypeface(Typeface nameTypeface, Typeface nameUnreadTypeface,Typeface titleTypeface, Typeface titleUnreadTypeface, Typeface subtitleTypeface, Typeface subtitleUnreadTypeface, Typeface dateTypeface, Typeface dateUnreadTypeface) {
+        conversationStyle.setNameTextTypeface(nameTypeface);
+        conversationStyle.setNameUnreadTextTypeface(nameUnreadTypeface);
+        conversationStyle.setTitleTextTypeface(titleTypeface);
+        conversationStyle.setTitleUnreadTextTypeface(titleUnreadTypeface);
+        conversationStyle.setSubtitleTextTypeface(subtitleTypeface);
+        conversationStyle.setSubtitleUnreadTextTypeface(subtitleUnreadTypeface);
+        conversationStyle.setDateTextTypeface(dateTypeface);
+        conversationStyle.setDateUnreadTextTypeface(dateUnreadTypeface);
+        return this;
+    }
 
     private void parseStyle(Context context, AttributeSet attrs, int defStyle) {
         ConversationStyle.Builder styleBuilder = new ConversationStyle.Builder();

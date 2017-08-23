@@ -222,6 +222,8 @@ public class AtlasConversationsAdapter extends RecyclerView.Adapter<AtlasConvers
         mIdentityEventListener.addIdentityPosition(position, participants);
 
         viewHolder.mAvatarCluster.setParticipants(participants);
+        Identity participant = participants.iterator().next();
+        viewHolder.txtName.setText(participant.getDisplayName());
         viewHolder.mTitleView.setText(mConversationFormatter.getConversationTitle(mLayerClient, conversation, participants));
         viewHolder.applyStyle(conversation.getTotalUnreadMessageCount() > 0);
 
@@ -386,6 +388,7 @@ public class AtlasConversationsAdapter extends RecyclerView.Adapter<AtlasConvers
         protected AtlasAvatar mAvatarCluster;
         protected TextView mMessageView;
         protected TextView mTimeView;
+        protected TextView txtName;
 
         protected ConversationStyle conversationStyle;
         protected Conversation mConversation;
@@ -401,13 +404,20 @@ public class AtlasConversationsAdapter extends RecyclerView.Adapter<AtlasConvers
             mTitleView = (TextView) itemView.findViewById(R.id.title);
             mMessageView = (TextView) itemView.findViewById(R.id.last_message);
             mTimeView = (TextView) itemView.findViewById(R.id.time);
+            txtName = (TextView) itemView.findViewById(R.id.txtName);
             itemView.setBackgroundColor(conversationStyle.getCellBackgroundColor());
             mAvatarCluster.setShouldShowPresence(shouldShowAvatarPresence);
         }
 
         public void applyStyle(boolean unread) {
+            //handling participant name style in case of read/unread message
+            txtName.setTextColor(unread ? conversationStyle.getTitleUnreadTextColor() : conversationStyle.getTitleTextColor());
+            txtName.setTypeface(unread ? conversationStyle.getNameUnreadTextTypeface() : conversationStyle.getNameTextTypeface(), unread ? conversationStyle.getTitleUnreadTextStyle() : conversationStyle.getTitleTextStyle());
+
             mTitleView.setTextColor(unread ? conversationStyle.getTitleUnreadTextColor() : conversationStyle.getTitleTextColor());
-            mTitleView.setTypeface(unread ? conversationStyle.getTitleUnreadTextTypeface() : conversationStyle.getTitleTextTypeface(), unread ? conversationStyle.getTitleUnreadTextStyle() : conversationStyle.getTitleTextStyle());
+            // workaround to let title use normal text style in both cases read and unread. because we need participant name only to be bold in case of unread
+            mTitleView.setTypeface(unread ? conversationStyle.getTitleUnreadTextTypeface() : conversationStyle.getTitleTextTypeface(), unread ? conversationStyle.getTitleTextStyle() : conversationStyle.getTitleTextStyle());
+
             mMessageView.setTextColor(unread ? conversationStyle.getSubtitleUnreadTextColor() : conversationStyle.getSubtitleTextColor());
             mMessageView.setTypeface(unread ? conversationStyle.getSubtitleUnreadTextTypeface() : conversationStyle.getSubtitleTextTypeface(), unread ? conversationStyle.getSubtitleUnreadTextStyle() : conversationStyle.getSubtitleTextStyle());
             mTimeView.setTextColor(unread ? conversationStyle.getDateUnreadTextColor() : conversationStyle.getDateTextColor());

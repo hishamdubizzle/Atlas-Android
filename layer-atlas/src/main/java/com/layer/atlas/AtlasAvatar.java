@@ -349,6 +349,7 @@ public class AtlasAvatar extends View {
     }
 
     private void drawPresence(Canvas canvas, Identity identity) {
+        //dubizzle: changed code to draw green circle wrapped by white circle in case of online. and remove presence at all in case of other status: offline,...
         Presence.PresenceStatus currentStatus = identity.getPresenceStatus();
         if (currentStatus == null) {
             return;
@@ -356,42 +357,61 @@ public class AtlasAvatar extends View {
 
         boolean drawPresence = true;
         boolean makeCircleHollow = false;
+
         switch (currentStatus) {
             case AVAILABLE:
-                mPresencePaint.setColor(Color.rgb(0x4F, 0xBF, 0x62));
+                ///mPresencePaint.setColor(Color.rgb(0x4F, 0xBF, 0x62));
+                mPresencePaint.setColor(Color.WHITE);
+                makeCircleHollow = true;
                 break;
             case AWAY:
-                mPresencePaint.setColor(Color.rgb(0xF7, 0xCA, 0x40));
+                /// mPresencePaint.setColor(Color.rgb(0xF7, 0xCA, 0x40));
+                mPresencePaint.setColor(Color.WHITE);
+                makeCircleHollow = true;
                 break;
             case OFFLINE:
-                mPresencePaint.setColor(Color.rgb(0x99, 0x99, 0x9c));
+                ///mPresencePaint.setColor(Color.rgb(0x99, 0x99, 0x9c));
+                mPresencePaint.setColor(Color.WHITE);
                 makeCircleHollow = true;
                 break;
             case INVISIBLE:
-                mPresencePaint.setColor(Color.rgb(0x50, 0xC0, 0x62));
+                ///mPresencePaint.setColor(Color.rgb(0x50, 0xC0, 0x62));
+                mPresencePaint.setColor(Color.WHITE);
                 makeCircleHollow = true;
                 break;
             case BUSY:
-                mPresencePaint.setColor(Color.rgb(0xE6, 0x44, 0x3F));
+                ///mPresencePaint.setColor(Color.rgb(0xE6, 0x44, 0x3F));
+                mPresencePaint.setColor(Color.WHITE);
+                makeCircleHollow = true;
                 break;
             default:
                 drawPresence = false;
                 break;
         }
         if (drawPresence) {
-            // Clear background + create border
-            mBackgroundPaint.setColor(Color.WHITE);
-            mBackgroundPaint.setAntiAlias(true);
-            canvas.drawCircle(mPresenceCenterX, mPresenceCenterY, mPresenceOuterRadius, mBackgroundPaint);
+            switch (currentStatus) {
+                case AVAILABLE:
 
-            // Draw Presence status
-            mPresencePaint.setAntiAlias(true);
-            canvas.drawCircle(mPresenceCenterX, mPresenceCenterY, mPresenceInnerRadius, mPresencePaint);
+                    // Clear background + create border
+                    /// mBackgroundPaint.setColor(Color.WHITE);
+                    mBackgroundPaint.setColor(Color.parseColor("#03DDAD"));
+                    mBackgroundPaint.setAntiAlias(true);
+                    ///canvas.drawCircle(mPresenceCenterX, mPresenceCenterY, mPresenceOuterRadius, mBackgroundPaint);
 
-            // Draw hollow if needed
-            if (makeCircleHollow) {
-                canvas.drawCircle(mPresenceCenterX, mPresenceCenterY, (mPresenceInnerRadius / 2f), mBackgroundPaint);
+                    // Draw Presence status
+                    mPresencePaint.setAntiAlias(true);
+                    canvas.drawCircle(mPresenceCenterX, mPresenceCenterY, mPresenceInnerRadius, mPresencePaint);
+
+                    // Draw hollow if needed
+                    if (makeCircleHollow) {
+                        ///canvas.drawCircle(mPresenceCenterX, mPresenceCenterY, (mPresenceInnerRadius / 2f), mBackgroundPaint);
+                        canvas.drawCircle(mPresenceCenterX, mPresenceCenterY, (.7f*mPresenceInnerRadius ), mBackgroundPaint);
+                    }
+                    break;
+
+
             }
+
         }
     }
 

@@ -5,6 +5,10 @@ import android.support.annotation.ColorInt;
 
 public final class ConversationStyle {
 
+    //adding fonts for participant name
+    private Typeface mNameTextTypeface;
+    private Typeface mNameUnreadTextTypeface;
+
     private int mTitleTextColor;
     private int mTitleTextStyle;
     private Typeface mTitleTextTypeface;
@@ -96,6 +100,20 @@ public final class ConversationStyle {
     public Typeface getTitleUnreadTextTypeface() {
         return mTitleUnreadTextTypeface;
     }
+
+    public void setNameTextTypeface(Typeface titleTextTypeface) {
+        this.mNameTextTypeface = titleTextTypeface;
+    }
+    public void setNameUnreadTextTypeface(Typeface nameUnreadTypeface) {
+        mNameUnreadTextTypeface = nameUnreadTypeface;
+    }
+    public Typeface getNameTextTypeface() {
+        return mNameTextTypeface;
+    }
+    public Typeface getNameUnreadTextTypeface() {
+        return mNameUnreadTextTypeface;
+    }
+
 
     @ColorInt
     public int getSubtitleTextColor() {
